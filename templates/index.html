@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CASA COR - SENAC</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="senac">
+        <h1>CASA COR - SENAC</h1>
+    </div>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form action="/reservar" method="post">
+        <label for="horario">Horário (HH:MM):</label>
+        <input type="text" id="horario" name="horario" required><br>
+        
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+
+        <label for="empresa">Empresa:</label>
+        <input type="text" id="empresa" name="empresa" required><br>
+
+        <label for="telefone">Telefone:</label>
+        <input type="tel" id="telefone" name="telefone" required><br>
+
+
+
+        <input type="submit" value="Reservar">
+    </form>
+
+  <!-- <h2 class="senac">Reservas</h2>
+    <ul>
+        {% for horario, reservas in cadastros.items() %}
+            <li>
+                <strong>{{ horario }}</strong>:
+                <ul>
+                    {% for reserva in reservas %}
+                        <li>{{ reserva['nome'] }} - {{ reserva['email'] }}, {{ reserva['empresa'] }}, {{ reserva['telefone'] }}</li>
+                    {% endfor %}
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+-->
+<h2 class="senac">Reservas</h2>
+<ul>
+    {% for horario, reservas in cadastros.items() %}
+        <li>
+            <strong>{{ horario }}</strong>:
+            <ul>
+                {% for reserva in reservas %}
+                    <li>
+                        {{ reserva['nome'] }} - {{ reserva['email'] }}, {{ reserva['empresa'] }}, {{ reserva['telefone'] }}
+                        <!-- Adicionando link de exclusão ao lado de cada reserva -->
+                        <a href="/excluir/{{ reserva['nome'] }}">Excluir</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% endfor %}
+</ul>
+    <div class="salvar">
+        <a href="/salvar">Salvar Reservas</a>
+    </div>
+    
+</body>
+</html>
+
+
+<!--
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservas</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h2>Lista de Reservas</h2>
+
+<form action="/salvar" method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Empresa</th>
+                <th>Telefone</th>
+                <th>Hora</th>
+                <th>Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reserva in reservas %}
+            <tr>
+                <td>{{ reserva['name'] }}</td>
+                <td>{{ reserva['email'] }}</td>
+                <td>{{ reserva['empresa'] }}</td>
+                <td>{{ reserva['telefone'] }}</td>
+                <td>{{ reserva['hora'] }}</td>
+                <td><a href="{{ url_for('excluir_reserva', nome=reserva['name']) }}" class="btn btn-danger">Excluir</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <br>
+    <h3>Cadastrar nova reserva</h3>
+
+    <label for="name">Nome:</label>
+    <input type="text" name="name" required><br><br>
+
+    <label for="email">Email:</label>
+    <input type="email" name="email" required><br><br>
+
+    <label for="empresa">Empresa:</label>
+    <input type="text" name="empresa" required><br><br>
+
+    <label for="telefone">Telefone:</label>
+    <input type="text" name="telefone" required><br><br>
+
+    <input type="submit" value="Salvar Reservas">
+</form>
+    <a href="/salvar">Salvar Reservas</a>
+</body>
+</html>
+-->
